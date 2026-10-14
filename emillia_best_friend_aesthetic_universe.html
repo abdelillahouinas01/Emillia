@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EMILLIA | My Best Friend & Soul Sister 💖</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Playfair Display, Great Vibes, Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepDark: '#0d0609',
+                        velvetCard: '#180b13',
+                        blushPink: '#ffb3c6',
+                        roseGold: '#f7cad0',
+                        softMagenta: '#ff3385',
+                        crimsonDeep: '#b3003b',
+                        fairyGold: '#ffe3a8'
+                    },
+                    fontFamily: {
+                        serifHeader: ['Playfair Display', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        body: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d0609;
+            color: #fff0f5;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Feminine Luxury Glassmorphism */
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(24, 11, 19, 0.88), rgba(13, 6, 9, 0.92));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 179, 198, 0.22);
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 51, 133, 0.12);
+        }
+
+        .glass-btn {
+            background: linear-gradient(135deg, rgba(255, 51, 133, 0.25), rgba(247, 202, 208, 0.1));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 179, 198, 0.35);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 51, 133, 0.45), rgba(247, 202, 208, 0.25));
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(255, 51, 133, 0.35);
+            border-color: rgba(255, 179, 198, 0.6);
+        }
+
+        .glass-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Luxurious Feminine Title */
+        .giant-name {
+            background: linear-gradient(135deg, #ffffff 0%, #ffe3a8 25%, #ffb3c6 55%, #ff3385 80%, #b3003b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(255, 51, 133, 0.6)) drop-shadow(0 0 50px rgba(179, 0, 59, 0.35));
+        }
+
+        /* Quotes Smooth Fade */
+        .quote-fade-enter {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .quote-fade-exit {
+            opacity: 0;
+            transform: translateY(-15px) scale(0.96);
+            filter: blur(6px);
+            transition: all 0.5s cubic-bezier(0.7, 0, 0.84, 0);
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Progress Bar Timer Animation */
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .animate-progress {
+            animation: progress 6.5s linear infinite;
+        }
+
+        /* Polaroid 3D Hover Effect */
+        .polaroid-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .polaroid-card:hover {
+            transform: translateY(-8px) rotate(-1deg) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255, 51, 133, 0.25);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0609;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff3385;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col justify-between items-center p-4 sm:p-8">
+
+    <!-- Interactive Glowing Background Canvas (Sparkles, Flowers, Butterflies) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-4xl flex justify-between items-center z-10 my-2">
+        <div class="flex items-center gap-2 bg-velvetCard/80 px-4 py-2 rounded-full border border-blushPink/30 backdrop-blur-md shadow-lg">
+            <i class="fa-solid fa-crown text-fairyGold text-xs animate-bounce"></i>
+            <span class="text-xs font-semibold tracking-widest text-blushPink uppercase font-body">My Best Friend & Soul Sister</span>
+        </div>
+
+        <button onclick="toggleMusic()" id="music-btn" class="glass-btn px-4 py-2 rounded-full text-blushPink text-xs sm:text-sm font-medium flex items-center gap-2">
+            <i class="fa-solid fa-compact-disc text-softMagenta animate-spin-slow"></i>
+            <span id="music-text">Dreamy Melody</span>
+        </button>
+    </header>
+
+    <!-- Main Application Area -->
+    <main class="w-full max-w-4xl flex flex-col items-center justify-center flex-1 my-auto gap-8 z-10">
+
+        <!-- Header Title Section -->
+        <section class="text-center w-full py-4 relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-softMagenta/20 via-blushPink/20 to-transparent blur-3xl -z-10 rounded-full"></div>
+            
+            <p class="font-script text-3xl sm:text-4xl text-blushPink mb-1 select-none">
+                To my wonderful & dearest
+            </p>
+
+            <!-- GIANT FEMININE NAME -->
+            <h1 class="font-serifHeader text-6xl sm:text-8xl md:text-9xl font-black tracking-wider giant-name select-none py-1">
+                EMILLIA
+            </h1>
+
+            <div class="flex items-center justify-center gap-3 mt-2">
+                <span class="h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-softMagenta"></span>
+                <i class="fa-solid fa-sparkles text-fairyGold text-sm"></i>
+                <span class="text-xs sm:text-sm tracking-[0.25em] text-roseGold font-light uppercase">You Are Priceless</span>
+                <i class="fa-solid fa-sparkles text-fairyGold text-sm"></i>
+                <span class="h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-softMagenta"></span>
+            </div>
+        </section>
+
+        <!-- Auto-fading Quote Showcase Container -->
+        <section class="w-full max-w-2xl glass-panel p-6 sm:p-10 rounded-3xl relative overflow-hidden" id="quotes-container">
+            
+            <!-- Progress Bar Indicator -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-black/40">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-softMagenta via-blushPink to-fairyGold animate-progress"></div>
+            </div>
+
+            <!-- Category Badge & Quote Counter -->
+            <div class="flex justify-between items-center mb-6 border-b border-blushPink/15 pb-3">
+                <span id="quote-category" class="text-xs font-semibold text-fairyGold bg-softMagenta/20 px-3 py-1 rounded-full border border-softMagenta/30 flex items-center gap-2">
+                    <i class="fa-solid fa-gem text-blushPink"></i> Unshakable Loyalty
+                </span>
+                <span id="quote-counter" class="text-xs font-bold text-blushPink bg-black/40 px-3 py-1 rounded-full border border-blushPink/20 font-body">
+                    1 / 7
+                </span>
+            </div>
+
+            <!-- Quote Text Display Area -->
+            <div class="min-h-[160px] flex flex-col items-center justify-center text-center px-2 my-2">
+                <i class="fa-solid fa-quote-left text-softMagenta/30 text-3xl mb-2"></i>
+                <p id="quote-text" class="text-gray-100 text-lg sm:text-2xl font-serifHeader italic leading-relaxed quote-fade-enter">
+                    <!-- Dynamic Quotes Injected Here -->
+                </p>
+            </div>
+
+            <!-- Controls & Interaction Buttons -->
+            <div class="flex flex-wrap justify-between items-center gap-3 mt-6 pt-4 border-t border-blushPink/15">
+                <div class="flex gap-2">
+                    <button onclick="prevQuote()" class="glass-btn w-10 h-10 rounded-xl flex items-center justify-center text-blushPink text-sm" title="Previous">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="togglePause()" id="pause-btn" class="glass-btn px-3 h-10 rounded-xl flex items-center gap-1.5 text-blushPink text-xs font-medium" title="Pause / Play">
+                        <i class="fa-solid fa-pause"></i> <span id="pause-text" class="hidden sm:inline">Pause</span>
+                    </button>
+                    <button onclick="nextQuote()" class="glass-btn w-10 h-10 rounded-xl flex items-center justify-center text-blushPink text-sm" title="Next">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <button onclick="triggerMagicExplosion()" class="glass-btn px-5 h-10 rounded-xl text-xs sm:text-sm font-semibold text-fairyGold bg-softMagenta/20 flex items-center gap-2 border-softMagenta/40">
+                    <i class="fa-solid fa-wand-magic-sparkles text-softMagenta"></i> Click For Magic ✨
+                </button>
+            </div>
+        </section>
+
+        <!-- Aesthetic Friendship Polaroids & Reasons Showcase -->
+        <section class="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-5 my-2">
+            
+            <!-- Card 1 -->
+            <div class="glass-panel p-6 rounded-2xl polaroid-card border-t-2 border-t-softMagenta flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-softMagenta/20 border border-softMagenta/40 flex items-center justify-center text-softMagenta mb-3">
+                        <i class="fa-solid fa-shield-heart text-lg"></i>
+                    </div>
+                    <h3 class="font-serifHeader text-lg font-bold text-blushPink mb-2">Unwavering Support</h3>
+                    <p class="text-xs text-roseGold/80 leading-relaxed font-body">
+                        No matter the distance or the challenge, I am always standing right behind you to encourage, uplift, and protect your happiness.
+                    </p>
+                </div>
+                <span class="font-script text-xl text-fairyGold mt-4 block text-right">Always Here</span>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass-panel p-6 rounded-2xl polaroid-card border-t-2 border-t-blushPink flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-blushPink/20 border border-blushPink/40 flex items-center justify-center text-blushPink mb-3">
+                        <i class="fa-solid fa-seedling text-lg"></i>
+                    </div>
+                    <h3 class="font-serifHeader text-lg font-bold text-blushPink mb-2">A Safe Harbor</h3>
+                    <p class="text-xs text-roseGold/80 leading-relaxed font-body">
+                        With you, there’s no need for pretense. You can share your thoughts, your worries, and your dreams in complete safety and warmth.
+                    </p>
+                </div>
+                <span class="font-script text-xl text-fairyGold mt-4 block text-right">Pure Trust</span>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="glass-panel p-6 rounded-2xl polaroid-card border-t-2 border-t-fairyGold flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-xl bg-fairyGold/20 border border-fairyGold/40 flex items-center justify-center text-fairyGold mb-3">
+                        <i class="fa-solid fa-sparkles text-lg"></i>
+                    </div>
+                    <h3 class="font-serifHeader text-lg font-bold text-blushPink mb-2">Genuine Light</h3>
+                    <p class="text-xs text-roseGold/80 leading-relaxed font-body">
+                        Your kindness and intelligence bring so much brightness to the world. Having you as a best friend is a irreplaceable gift.
+                    </p>
+                </div>
+                <span class="font-script text-xl text-fairyGold mt-4 block text-right">Priceless Friend</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 text-xs text-roseGold/50 z-10 font-body tracking-widest">
+        Created with eternal appreciation for my best friend, <span class="text-blushPink font-semibold">Emillia</span> 🌸
+    </footer>
+
+    <!-- JavaScript Application Engine -->
+    <script>
+        /* 1. Interactive Background Canvas (Pink Blossoms, Stars & Floating Particles) */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class FairyParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 50;
+                this.size = Math.random() * 2.5 + 0.8;
+                this.speedY = -(Math.random() * 0.5 + 0.15);
+                this.speedX = Math.sin(Math.random() * Math.PI) * 0.3;
+                this.opacity = Math.random() * 0.7 + 0.2;
+                this.type = Math.floor(Math.random() * 3); // 0: Star, 1: Petal, 2: Dot
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.02;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotSpeed;
+                if (this.y < -20) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.fillStyle = `rgba(255, 179, 198, ${this.opacity})`;
+                
+                if (this.type === 0) { // Star
+                    ctx.fillStyle = `rgba(255, 227, 168, ${this.opacity})`;
+                    ctx.beginPath();
+                    for(let i = 0; i < 5; i++) {
+                        ctx.lineTo(Math.cos((18+i*72)*Math.PI/180)*this.size*2, -Math.sin((18+i*72)*Math.PI/180)*this.size*2);
+                        ctx.lineTo(Math.cos((54+i*72)*Math.PI/180)*this.size, -Math.sin((54+i*72)*Math.PI/180)*this.size);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                } else if (this.type === 1) { // Flower Petal
+                    ctx.fillStyle = `rgba(255, 51, 133, ${this.opacity * 0.8})`;
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.size * 2, this.size, Math.PI / 4, 0, 2 * Math.PI);
+                    ctx.fill();
+                } else { // Glowing Dot
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        const fairyParticles = Array.from({ length: 65 }, () => new FairyParticle());
+
+        function renderBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fairyParticles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(renderBg);
+        }
+        renderBg();
+
+        /* 2. Sentimental Friendship Quotes & Categorization */
+        const quotesData = [
+            {
+                quote: "\"Emillia, you aren't just an incredible friend; you are someone who brings pure light and comfort into my life.\"",
+                category: "Pure Gratitude",
+                icon: "fa-heart"
+            },
+            {
+                quote: "\"No matter how chaotic or hard the world gets, please remember that I am right here by your side, through every step.\"",
+                category: "Unshakable Loyalty",
+                icon: "fa-shield-heart"
+            },
+            {
+                quote: "\"You mean the absolute world to me. Having a friend as authentic, loyal, and wonderful as you is a true blessing.\"",
+                category: "Deep Appreciation",
+                icon: "fa-gem"
+            },
+            {
+                quote: "\"Whenever you need someone to listen, someone to laugh with, or someone to stand tall with you — I am always here.\"",
+                category: "Endless Support",
+                icon: "fa-hands-holding-heart"
+            },
+            {
+                quote: "\"Your smile, your strength, and your warmth make every single day brighter for everyone lucky enough to know you.\"",
+                category: "Genuine Light",
+                icon: "fa-sun"
+            },
+            {
+                quote: "\"True friendship means believing in each other, standing together in every season, and growing side-by-side. That is my promise to you.\"",
+                category: "Forever Side-by-Side",
+                icon: "fa-infinity"
+            },
+            {
+                quote: "\"Thank you for being such an extraordinary best friend, Emillia. I value you more than words could ever describe.\"",
+                category: "Eternal Bond",
+                icon: "fa-crown"
+            }
+        ];
+
+        let currentIndex = 0;
+        let isPaused = false;
+        let quoteTimer = null;
+        const INTERVAL_TIME = 6500; // 6.5 seconds per slide
+
+        function displayQuote(index) {
+            const qText = document.getElementById('quote-text');
+            const qCounter = document.getElementById('quote-counter');
+            const qCategory = document.getElementById('quote-category');
+            const pBar = document.getElementById('progress-bar');
+
+            // Exit Animation
+            qText.className = "text-gray-100 text-lg sm:text-2xl font-serifHeader italic leading-relaxed quote-fade-exit";
+
+            setTimeout(() => {
+                const item = quotesData[index];
+                qText.textContent = item.quote;
+                qCounter.textContent = `${index + 1} / ${quotesData.length}`;
+                qCategory.innerHTML = `<i class="fa-solid ${item.icon} text-blushPink"></i> ${item.category}`;
+
+                // Enter Animation
+                qText.className = "text-gray-100 text-lg sm:text-2xl font-serifHeader italic leading-relaxed quote-fade-enter";
+
+                // Reset progress bar animation
+                if (pBar) {
+                    pBar.style.animation = 'none';
+                    pBar.offsetHeight; // trigger reflow
+                    if (!isPaused) {
+                        pBar.style.animation = `progress ${INTERVAL_TIME}ms linear infinite`;
+                    }
+                }
+            }, 450);
+        }
+
+        function startAutoCycle() {
+            stopAutoCycle();
+            quoteTimer = setInterval(() => {
+                if (!isPaused) {
+                    currentIndex = (currentIndex + 1) % quotesData.length;
+                    displayQuote(currentIndex);
+                }
+            }, INTERVAL_TIME);
+        }
+
+        function stopAutoCycle() {
+            if (quoteTimer) clearInterval(quoteTimer);
+        }
+
+        function nextQuote() {
+            currentIndex = (currentIndex + 1) % quotesData.length;
+            displayQuote(currentIndex);
+            startAutoCycle();
+        }
+
+        function prevQuote() {
+            currentIndex = (currentIndex - 1 + quotesData.length) % quotesData.length;
+            displayQuote(currentIndex);
+            startAutoCycle();
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            const btnText = document.getElementById('pause-text');
+            const btnIcon = document.querySelector('#pause-btn i');
+            const pBar = document.getElementById('progress-bar');
+
+            if (isPaused) {
+                btnText.textContent = "Play";
+                btnIcon.className = "fa-solid fa-play";
+                if (pBar) pBar.style.animationPlayState = 'paused';
+            } else {
+                btnText.textContent = "Pause";
+                btnIcon.className = "fa-solid fa-pause";
+                if (pBar) pBar.style.animationPlayState = 'running';
+            }
+        }
+
+        // Pause on hover
+        const container = document.getElementById('quotes-container');
+        container.addEventListener('mouseenter', () => {
+            const pBar = document.getElementById('progress-bar');
+            if (pBar && !isPaused) pBar.style.animationPlayState = 'paused';
+        });
+        container.addEventListener('mouseleave', () => {
+            const pBar = document.getElementById('progress-bar');
+            if (pBar && !isPaused) pBar.style.animationPlayState = 'running';
+        });
+
+        // Initialize First Quote
+        window.addEventListener('DOMContentLoaded', () => {
+            displayQuote(0);
+            startAutoCycle();
+        });
+
+        /* 3. Magic Floral & Glitter Confetti Burst */
+        function triggerMagicExplosion() {
+            // Flowers & Stars
+            confetti({
+                particleCount: 70,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ff3385', '#ffb3c6', '#ffe3a8', '#ffffff', '#b3003b'],
+                shapes: ['circle', 'square'],
+                scalar: 1.2
+            });
+            // Glitter Side Bursts
+            setTimeout(() => {
+                confetti({
+                    particleCount: 40,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ffb3c6', '#ffe3a8']
+                });
+                confetti({
+                    particleCount: 40,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ffb3c6', '#ffe3a8']
+                });
+            }, 150);
+        }
+
+        /* 4. Dreamy Web Audio Piano Synth */
+        let audioCtx = null;
+        let isPlaying = false;
+        let melodyTimer = null;
+
+        function toggleMusic() {
+            const btnText = document.getElementById('music-text');
+            if (!isPlaying) {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                isPlaying = true;
+                btnText.textContent = "Pause Melody";
+                
+                // Soft Chord Progression F#m - D - A - E
+                const chords = [
+                    [369.99, 440.00, 554.37], // F#m
+                    [293.66, 369.99, 440.00], // D
+                    [440.00, 554.37, 659.25], // A
+                    [329.63, 415.30, 493.88]  // E
+                ];
+                let step = 0;
+
+                playChord(chords[0]);
+                melodyTimer = setInterval(() => {
+                    step = (step + 1) % chords.length;
+                    playChord(chords[step]);
+                }, 2800);
+            } else {
+                isPlaying = false;
+                btnText.textContent = "Dreamy Melody";
+                if (melodyTimer) clearInterval(melodyTimer);
+            }
+        }
+
+        function playChord(notes) {
+            if (!audioCtx) return;
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    try {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.value = freq;
+                        
+                        gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.5);
+                        
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 2.5);
+                    } catch(e) {}
+                }, idx * 120);
+            });
+        }
+    </script>
+</body>
+</html>
